@@ -34,6 +34,8 @@
 - 定義檔案與資料夾命名規範。
 - 確認程式碼組織方式。
 
+目錄、命名與程式碼組織規範見 [PROJECT_STRUCTURE.md](./PROJECT_STRUCTURE.md)。
+
 ### Phase 2｜Design Tokens
 
 建立設計系統基礎規範：
