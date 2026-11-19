@@ -23,8 +23,10 @@ export const Colors = {
     textSecondary: '#B0B4BA',
   },
 } as const;
+// as const 表示 TypeScript 將物件屬性視為唯讀，不能直接重新賦值；但不代表執行時物件被凍結。
 
 export type ThemeColor = keyof typeof Colors.light & keyof typeof Colors.dark;
+// 確保顏色名稱一致，但兩邊如果有遺漏，不會直接報錯，只會取兩邊共同存在的屬性名稱。
 
 export const Fonts = Platform.select({
   ios: {
@@ -62,6 +64,7 @@ export const Spacing = {
 } as const;
 
 export const BottomTabInset = Platform.select({ ios: 50, android: 80 }) ?? 0;
+// Safe Area 可透過 React Native 相關套件動態取得；此處為依平台設定的固定底部間距，需與實際 Bottom Tab 高度分開確認。
 export const MaxContentWidth = 800;
 
 // Light appearance from the iOS 3.0 login, email entry, and recipe detail designs.
@@ -123,8 +126,13 @@ export const LayoutSpacing = {
 
 // Estimated from the login screenshot. Pill corners follow the control height.
 export const BorderRadius = {
-  rounded: 12,
-  pill: 999,
+  xs: 4,
+  sm: 8,
+  md: 12,
+  lg: 16,
+  xl: 24,
+  xxl: 48,
+  full: 9999,
 } as const;
 
 export const Shadows = {
