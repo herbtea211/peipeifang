@@ -1,8 +1,9 @@
 import type { ReactNode } from 'react';
-import { Button, Modal, ScrollView, StyleSheet } from 'react-native';
+import { Modal, ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 import { ThemedView } from '@/components/themed-view';
+import { Button } from '@/components/ui/button';
 import { BorderRadius, LayoutSpacing, MaxContentWidth } from '@/constants/theme';
 
 type BottomSheetProps = {
@@ -25,7 +26,12 @@ export function BottomSheet({ visible, onClose, children }: BottomSheetProps) {
           <ThemedView accessibilityViewIsModal style={styles.surface}>
             <SafeAreaView edges={['left', 'right', 'bottom']} style={styles.body}>
               <ScrollView contentContainerStyle={styles.content}>{children}</ScrollView>
-              <Button title="關閉 Sheet" onPress={onClose} />
+              <Button
+                level="secondary"
+                label="關閉 Sheet"
+                showRightIcon={false}
+                onPress={onClose}
+              />
             </SafeAreaView>
           </ThemedView>
         </SafeAreaView>
