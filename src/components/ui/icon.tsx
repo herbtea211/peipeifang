@@ -2,6 +2,7 @@ import { SymbolView, type SymbolViewProps } from 'expo-symbols';
 
 const symbols = new Map<string, SymbolViewProps['name']>([
   ['plus', { ios: 'plus', android: 'add', web: 'add' }],
+  ['x', { ios: 'xmark', android: 'close', web: 'close' }],
   ['chevron-right', { ios: 'chevron.right', android: 'chevron_right', web: 'chevron_right' }],
 ]);
 

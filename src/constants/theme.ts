@@ -75,6 +75,7 @@ export const LightColors = {
   text: '#1C1C1E',
   textSecondary: '#636366',
   placeholder: '#8E8E93',
+  error: '#C62828',
   buttonDisabled: '#D1D1D6',
   divider: '#3C3C43',
 } as const;
