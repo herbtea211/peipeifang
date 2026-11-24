@@ -66,6 +66,13 @@
 
 避免過早抽象化元件，應根據實際頁面需求建立。
 
+#### List Component
+
+- ListItem 與 ListGroup 已實作。公開介面、群組協調及滑動刪除見 [List 規格](./LIST_SPEC.md)。
+- List 專項 Code Review 已完成。修正父層移除 onDelete 後仍殘留展開狀態的問題。
+- 已執行 TypeScript、Expo flat config ESLint、Expo Web 建置，以及 Chromium 版面、手勢、鍵盤和路由回歸。
+- iOS／Android、實際螢幕閱讀器、Safari、Firefox 與實機行動瀏覽器仍待驗證。見 [待實測清單](./PENDING_TESTS.md)。
+
 #### 元件 Code Review 決策
 
 - P1-01 已完成。Input 的 `value` 和 `onChangeText` 為必填，由父層管理。見 [Input 規格](./INPUT_SPEC.md)。
@@ -80,6 +87,10 @@
 
 - 統整 Component Size Tokens，將尺寸與間距分開管理。
 - 統整 Disabled Color Tokens，確認命名與共用關係。
+- List Divider 採既有不透明 #3C3C43。原始 Figma 顏色相同，透明度為 36%，厚度參考 1px。後續與全站 Divider 一併評估。
+- List 次要文字沿用 Typography.caption 的 13／18、400。原始 Figma 參考 15／20、400，後續評估是否有共用的次要文字規格。
+
+若日後統一 Icon 名稱型別，將 ListItem 與 Button、Input、NavigationBar 一起檢查。
 
 ### Phase 5｜資料模型與假資料
 

@@ -78,6 +78,18 @@ setRecipes(recipes);
 - 不要為了抽象化而過早建立大量共用元件。
 - 優先維持頁面結構清楚及跨平台相容性。
 
+#### Minimal Implementation
+
+- Native First：優先使用 React Native、Expo 與既有套件的能力。
+- No Overengineering：依目前需求決定元件結構與介面。
+- Single Responsibility：分清元件、父層及頁面各自的責任。
+- Reuse First：優先複用既有元件、Design Tokens 與依賴。
+- Necessary Only：只建立目前需要的 Props、State、Hook、Ref 與 View。Figma 的 Frame 層級供視覺參考，程式結構依版面與互動責任決定。
+
+#### Native Capability Assessment
+
+開發新元件前，核對專案安裝版本，盤點 React Native、Expo 與既有套件的元件及 API。確認 iOS、Android、Web 的支援差異與產品需求，列出可直接複用及需自行實作的部分，再決定元件架構。
+
 ### 6. Supabase 與 Auth 延後實作
 
 在產品完成前期試用與調整之前：

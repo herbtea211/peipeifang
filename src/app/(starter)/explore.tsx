@@ -1,5 +1,6 @@
 import { Image } from 'expo-image';
 import { SymbolView } from 'expo-symbols';
+import { useState } from 'react';
 import { Platform, Pressable, ScrollView, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -7,10 +8,20 @@ import { ExternalLink } from '@/components/external-link';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Collapsible } from '@/components/ui/collapsible';
+import { ListGroup, type ListGroupItem } from '@/components/ui/list-group';
 import { WebBadge } from '@/components/web-badge';
 import { BottomTabInset, LightColors, MaxContentWidth, Spacing } from '@/constants/theme';
 
+const demoItems: ListGroupItem[] = [
+  { id: 'soup', label: '牛肉湯', labelDetail: '冷藏保存', detail: '12 份', leftIcon: 'plus', rightIcon: 'chevron-right' },
+  { id: 'sauce', label: '濃蝦醬', detail: '這是一段測試右側最大寬度與省略號的長文字' },
+  { id: 'pizza', label: '拿坡里披薩' },
+];
+
 export default function TabTwoScreen() {
+  const [items, setItems] = useState(demoItems);
+  const [selected, setSelected] = useState<string>();
+  const [showSample, setShowSample] = useState(true);
   const safeAreaInsets = useSafeAreaInsets();
   const insets = {
     ...safeAreaInsets,
@@ -114,6 +125,25 @@ export default function TabTwoScreen() {
               animate opening this hint.
             </ThemedText>
           </Collapsible>
+          <ThemedText accessibilityRole="header" style={styles.centerText}>List 測試範例</ThemedText>
+          <ListGroup
+            title="配方分類"
+            items={items.map((item) => ({
+              ...item,
+              onPress: item.id === 'soup' ? () => setSelected(item.label) : undefined,
+              onDelete: item.id !== 'pizza'
+                ? () => setItems((current) => current.filter(({ id }) => id !== item.id))
+                : undefined,
+            }))}
+          />
+          <ListGroup
+            items={showSample ? [{
+              id: 'sample',
+              label: '另一組的單筆資料',
+              onDelete: () => setShowSample(false),
+            }] : []}
+          />
+          {selected && <ThemedText>已選取：{selected}</ThemedText>}
         </ThemedView>
         {Platform.OS === 'web' && <WebBadge />}
       </ThemedView>

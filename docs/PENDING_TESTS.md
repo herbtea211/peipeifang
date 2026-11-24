@@ -40,6 +40,37 @@
 
 參考 [Input 規格](./INPUT_SPEC.md)。
 
+## ListItem v1.23／ListGroup v1.9
+
+### 已知缺陷與操作限制
+
+- **P1-02**　收合時向右拖曳可能誤觸 onPress。拖曳沒有產生 click 時，Ref 也可能擋住下一次沒有 onPressIn 的 DOM 啟動。快速滑動與點擊收合有偶發誤觸，固定時序複測通過。
+- **P1-03／P2-02**　Chromium 刪除並卸載列後，焦點回到 BODY，再按 Tab 可到下一個刪除入口。以滑鼠點擊滑動按鈕而父層保留資料時，焦點可能留在已遮住的按鈕。鍵盤刪除且保留資料時，焦點與按鈕提示仍維持。
+
+### 套件相容與升級後重驗
+
+- **P1-01**　Gesture Handler 3.3.0、Reanimated 4.7.1、Worklets 0.13.0 的 Web 收合工作可能在父層卸載展開列後更新已移除的 handler。刪除回呼保留雙重排程以先開始收合。外部提早卸載仍可能報 No handler for tag，重複啟動也可能執行多次回呼。見 [Issue #4680](https://github.com/software-mansion/react-native-gesture-handler/issues/4680) 與 [上游修正 #4682](https://github.com/software-mansion/react-native-gesture-handler/commit/2edcc620670d4bda5217dc78df6d1d97122d88ae)。
+- [ ] Expo 相容版本包含上游修正後，使用原始 close()／onDelete() 對照重測同步卸載、保留資料與外部卸載。驗證通過後移除 Web 雙重排程。
+
+### 尚未實際驗證
+
+- [ ] **iOS、Android**　用原生觸控驗證動畫中斷、反向滑動、同組互斥、垂直捲動、Divider 厚度與系統字體縮放。確認 P1-02 的兩個 Ref 是否都需要。
+- [ ] **VoiceOver、TalkBack**　確認自訂刪除 Action，特別是四種回呼組合、展開及收合動畫期間的可用性，以及裝飾 Icon 的閱讀順序。
+- [ ] **Web 螢幕閱讀器、Safari、Firefox、實機行動瀏覽器**　驗證焦點順序、刪除、列卸載後的焦點接續、手勢與垂直捲動，並複驗快速操作。Gesture Handler Pressable 的無障礙啟動能力也尚未完整驗證。
+- [ ] **Android Modal**　正式將 List 接入 Sheet 時，以 Modal 內的 GestureHandlerRootView 驗證原生 Swipeable。Web 在臨時展示已驗證可滑動。
+- [ ] **正式頁面**　複驗資料更新、重新排序和切換回呼時的群組協調。Chromium 的臨時展示已驗證這些基本流程。
+
+### 既有回歸測試發現
+
+- [ ] **Chromium Tabs**　修改前後均觀察到，從配方切換採購時，路由與選中 Tab 已更新，但 Accessibility Tree 仍顯示配方，採購按鈕可能被重疊畫面擋住。直接載入採購路由可正常開關 Sheet。另行排查分頁畫面切換。
+
+### 後續優化
+
+- Icon 名稱型別、Divider 透明度與次要文字尺寸統一議題見 [開發計畫](./DEV_PLAN.md)。45% 保留為列內 Flexbox 上限。
+- 專案的 lint script 為 expo lint。尚未有 ESLint 設定或本地 ESLint 依賴。本次以暫存 Expo SDK 58 flat config 檢查 src，專案正式設定另行決定。
+
+參考 [List 規格](./LIST_SPEC.md)。
+
 ## 正式頁面接入後
 
 - [ ] **P2-04**　NavigationBar 接入 `ScrollView` 後，檢查持續捲動是否造成不必要的重新渲染。
@@ -57,3 +88,5 @@
 - Button 已在 Web 驗證尺寸、按壓配色、節流、Loading 與無障礙狀態。iOS 和 Android 打包已通過。
 - NavigationBar 已在 Web 驗證標題排版、圖示互動、捲動臨界值、高度動畫中斷與內容跟隨。
 - Input 已在 Web 驗證受控輸入、`maxLength`、密碼遮蔽、Focus、Disabled、圖示回呼與提示文字。元件測試使用臨時頁面。
+- List 已在 Chromium 驗證原生單行省略樣式、滑動展開、同組收合、跨組獨立、點擊收合及刪除，並驗證 Tab 聚焦、Enter 與 Space。
+- P1-03 已用同一套 Chromium 操作流程對照修改前後，驗證刪除按鈕的焦點提示與隱藏、Tab／Shift+Tab、Enter／Space、無指標 DOM 啟動，以及父層移除或保留資料時的刪除。固定時序也複驗同組收合、跨組獨立與展開後點擊收合。
