@@ -5,8 +5,6 @@ import { BorderRadius, LayoutSpacing, LightColors, Shadows, Typography } from '@
 
 export type InputProps = Pick<
   TextInputProps,
-  | 'value'
-  | 'onChangeText'
   | 'placeholder'
   | 'maxLength'
   | 'keyboardType'
@@ -18,6 +16,8 @@ export type InputProps = Pick<
   | 'autoCapitalize'
   | 'accessibilityLabel'
 > & {
+  value: string;
+  onChangeText: (text: string) => void;
   rightIcon?: string;
   onRightIconPress?: () => void;
   disabled?: boolean;

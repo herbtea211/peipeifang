@@ -51,17 +51,20 @@ export function NavigationBar({
 
   const heightStyle = useAnimatedStyle(() => ({ height: height.get() }));
   const leftSymbol = showLeftIcon && leftIcon ? getIconSymbol(leftIcon) : undefined;
+  const hasLeftIconAction = !!onLeftIconPress;
   const rightSymbol = showRightIcon && rightIcon ? getIconSymbol(rightIcon) : undefined;
+  const hasRightIconAction = !!onRightIconPress;
 
   return (
     <Animated.View style={[styles.bar, heightStyle]}>
       <View style={styles.iconSlot}>
         {leftSymbol && (
           <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={leftIcon}
-            aria-disabled={leftIconDisabled}
-            disabled={leftIconDisabled}
+            accessibilityRole={hasLeftIconAction ? 'button' : undefined}
+            accessibilityLabel={hasLeftIconAction ? leftIcon : undefined}
+            accessible={hasLeftIconAction}
+            aria-disabled={hasLeftIconAction ? leftIconDisabled : undefined}
+            disabled={!hasLeftIconAction || leftIconDisabled}
             onPress={onLeftIconPress}
             style={styles.iconSlot}>
             <Icon
@@ -86,10 +89,11 @@ export function NavigationBar({
       <View style={styles.iconSlot}>
         {rightSymbol && (
           <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={rightIcon}
-            aria-disabled={rightIconDisabled}
-            disabled={rightIconDisabled}
+            accessibilityRole={hasRightIconAction ? 'button' : undefined}
+            accessibilityLabel={hasRightIconAction ? rightIcon : undefined}
+            accessible={hasRightIconAction}
+            aria-disabled={hasRightIconAction ? rightIconDisabled : undefined}
+            disabled={!hasRightIconAction || rightIconDisabled}
             onPress={onRightIconPress}
             style={styles.iconSlot}>
             <Icon
