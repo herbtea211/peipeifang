@@ -40,9 +40,14 @@
 
 參考 [Input 規格](./INPUT_SPEC.md)。
 
+## 正式頁面接入後
+
+- [ ] **P2-04**　NavigationBar 接入 `ScrollView` 後，檢查持續捲動是否造成不必要的重新渲染。
+- [ ] **iOS、Android**　Bottom Sheet 接入正式表單後，確認鍵盤開啟時仍可操作內容與關閉按鈕。
+
 ## 主題與原生環境
 
-- [ ] **iOS、Android**　在系統淺色、深色下啟動 App，並於執行中切換系統主題，確認 Root Layout、底部分頁和 Sheet 正常更新。
+- [ ] **iOS、Android**　分別在系統淺色、深色下啟動 App，並於執行中切換系統主題，確認 Root Layout、底部分頁和 Sheet 始終維持淺色（P2-01 Light Mode Only）。
 - [ ] **iOS Simulator**　若使用模擬器，複驗開發環境紀錄中尚未排查的 `xcrun simctl` 啟動問題。
 
 ## 已完成的驗證

@@ -4,11 +4,9 @@ import { useState, type ReactNode } from 'react';
 import { BottomSheet } from '@/components/ui/bottom-sheet';
 import { LightColors, Typography } from '@/constants/theme';
 import { OpenBottomSheetContext } from '@/hooks/use-bottom-sheet';
-import { useTheme } from '@/hooks/use-theme';
 
 export default function MainTabsLayout() {
   const [sheetContent, setSheetContent] = useState<ReactNode>(null);
-  const colors = useTheme();
 
   return (
     <OpenBottomSheetContext.Provider value={setSheetContent}>
@@ -16,12 +14,12 @@ export default function MainTabsLayout() {
         screenOptions={{
           headerShown: false,
           tabBarActiveTintColor: LightColors.primary,
-          tabBarInactiveTintColor: colors.textSecondary,
+          tabBarInactiveTintColor: LightColors.mutedText,
           tabBarLabelStyle: Typography.caption,
           tabBarIcon: () => null,
           tabBarStyle: {
-            backgroundColor: colors.backgroundElement,
-            borderTopColor: colors.backgroundSelected,
+            backgroundColor: LightColors.backgroundElement,
+            borderTopColor: LightColors.backgroundSelected,
           },
         }}>
         <Tabs.Screen name="recipes" options={{ title: '配方' }} />

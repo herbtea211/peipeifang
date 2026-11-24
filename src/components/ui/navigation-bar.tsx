@@ -14,7 +14,9 @@ export interface NavigationBarProps {
   title?: string;
   showTitle?: boolean;
   leftIcon?: string;
+  leftIconAccessibilityLabel?: string;
   rightIcon?: string;
+  rightIconAccessibilityLabel?: string;
   showLeftIcon?: boolean;
   showRightIcon?: boolean;
   leftIconDisabled?: boolean;
@@ -33,7 +35,9 @@ export function NavigationBar({
   title,
   showTitle = true,
   leftIcon,
+  leftIconAccessibilityLabel,
   rightIcon,
+  rightIconAccessibilityLabel,
   showLeftIcon = true,
   showRightIcon = true,
   leftIconDisabled = false,
@@ -61,7 +65,7 @@ export function NavigationBar({
         {leftSymbol && (
           <Pressable
             accessibilityRole={hasLeftIconAction ? 'button' : undefined}
-            accessibilityLabel={hasLeftIconAction ? leftIcon : undefined}
+            accessibilityLabel={hasLeftIconAction ? leftIconAccessibilityLabel : undefined}
             accessible={hasLeftIconAction}
             aria-disabled={hasLeftIconAction ? leftIconDisabled : undefined}
             disabled={!hasLeftIconAction || leftIconDisabled}
@@ -90,7 +94,7 @@ export function NavigationBar({
         {rightSymbol && (
           <Pressable
             accessibilityRole={hasRightIconAction ? 'button' : undefined}
-            accessibilityLabel={hasRightIconAction ? rightIcon : undefined}
+            accessibilityLabel={hasRightIconAction ? rightIconAccessibilityLabel : undefined}
             accessible={hasRightIconAction}
             aria-disabled={hasRightIconAction ? rightIconDisabled : undefined}
             disabled={!hasRightIconAction || rightIconDisabled}

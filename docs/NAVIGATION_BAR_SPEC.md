@@ -82,7 +82,9 @@ NavigationBar
 - 顯示設定預設為 `true`。
 - 未指定 Icon 時不顯示，但保留空間。
 - 左右 Icon 各自支援 Disabled。
-- Disabled 時不觸發點擊事件。
+- 有 callback 的圖示具備 Button 語意。Disabled 時保留灰階與無障礙停用語意，不觸發點擊事件。
+- 沒有 callback 的圖示只顯示，不宣告為 Button。
+- 父層以選填的 `leftIconAccessibilityLabel`、`rightIconAccessibilityLabel` 提供可操作圖示的名稱。停用時保留名稱，未提供時不以 Icon ID 代替。正式頁面應依動作用途提供名稱。
 - 不實作長按、Haptic、Loading 或額外點擊動畫。
 - 使用既有 `src/components/ui/icon.tsx`，必要時才擴充 Icon Library。
 
@@ -131,6 +133,8 @@ const isShort = scrollY > 0;
 | `showTitle`         | boolean  | true      |
 | `leftIcon`          | string   | undefined |
 | `rightIcon`         | string   | undefined |
+| `leftIconAccessibilityLabel`  | string   | undefined |
+| `rightIconAccessibilityLabel` | string   | undefined |
 | `showLeftIcon`      | boolean  | true      |
 | `showRightIcon`     | boolean  | true      |
 | `leftIconDisabled`  | boolean  | false     |
@@ -151,6 +155,7 @@ const isShort = scrollY > 0;
 - [ ] Title 固定或動態文字皆可正常顯示。
 - [ ] Title 水平置中，過長時單行省略。
 - [ ] 左右 Icon 可獨立設定、隱藏、Disabled 及點擊事件。
+- [ ] 有 callback 時使用父層提供的無障礙名稱，Disabled 保留名稱及停用語意。純顯示圖示沒有 Button 語意。
 - [ ] 隱藏 Icon 不影響 Title 位置。
 - [ ] 沿用既有 Icon Library。
 - [ ] Safe Area 由父層處理。

@@ -66,6 +66,21 @@
 
 避免過早抽象化元件，應根據實際頁面需求建立。
 
+#### 元件 Code Review 決策
+
+- P1-01 已完成。Input 的 `value` 和 `onChangeText` 為必填，由父層管理。見 [Input 規格](./INPUT_SPEC.md)。
+- P1-02 已完成。NavigationBar 根據 callback 與 Disabled 狀態決定圖示的互動與無障礙語意。見 [NavigationBar 規格](./NAVIGATION_BAR_SPEC.md)。
+- P2-01 已完成。App 固定使用 Light Mode，色彩集中在 `LightColors`，移除不再使用的主題切換邏輯。見 [App 架構](./APP_ARCHITECTURE.md#主題)。
+- P2-02 已完成。Input 與 NavigationBar 的可操作圖示由父層提供無障礙名稱。
+- P2-03 評估後保留 React Native `Modal`。現階段暫緩採用 Expo Router `formSheet` 或 Expo UI `BottomSheet`。見 [Bottom Sheet 規則](./APP_ARCHITECTURE.md#bottom-sheet-規則)。
+
+正式頁面開發時，NavigationBar 接入 `ScrollView` 後檢查不必要的重新渲染（P2-04）。Bottom Sheet 接入正式表單後，確認鍵盤不遮住內容或關閉按鈕。驗證項目見 [待實測清單](./PENDING_TESTS.md)。
+
+基礎元件全部完成後，安排一項 **Design Tokens Refactoring** 工作，合併 P3-01 與 P3-02：
+
+- 統整 Component Size Tokens，將尺寸與間距分開管理。
+- 統整 Disabled Color Tokens，確認命名與共用關係。
+
 ### Phase 5｜資料模型與假資料
 
 - 使用 TypeScript 定義資料型別。

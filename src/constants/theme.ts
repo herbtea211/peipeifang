@@ -1,32 +1,6 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://unistyl.es/), etc.
- */
-
 import '@/global.css';
 
 import { Platform } from 'react-native';
-
-export const Colors = {
-  light: {
-    text: '#000000',
-    background: '#ffffff',
-    backgroundElement: '#F0F0F3',
-    backgroundSelected: '#E0E1E6',
-    textSecondary: '#60646C',
-  },
-  dark: {
-    text: '#ffffff',
-    background: '#000000',
-    backgroundElement: '#212225',
-    backgroundSelected: '#2E3135',
-    textSecondary: '#B0B4BA',
-  },
-} as const;
-// as const 表示 TypeScript 將物件屬性視為唯讀，不能直接重新賦值；但不代表執行時物件被凍結。
-
-export type ThemeColor = keyof typeof Colors.light & keyof typeof Colors.dark;
-// 確保顏色名稱一致，但兩邊如果有遺漏，不會直接報錯，只會取兩邊共同存在的屬性名稱。
 
 export const Fonts = Platform.select({
   ios: {
@@ -77,8 +51,16 @@ export const LightColors = {
   placeholder: '#8E8E93',
   error: '#C62828',
   buttonDisabled: '#D1D1D6',
+  baseText: '#000000',
+  mutedText: '#60646C',
+  backgroundElement: '#F0F0F3',
+  backgroundSelected: '#E0E1E6',
   divider: '#3C3C43',
 } as const;
+
+// as const 表示 TypeScript 將物件屬性視為唯讀，不能直接重新賦值；但不代表執行時物件被凍結。
+
+export type ThemeColor = keyof typeof LightColors;
 
 const bodyFontFamily = Platform.select({
   ios: 'PingFang TC',

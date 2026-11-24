@@ -70,7 +70,8 @@ Input
 - Icon 使用既有 `src/components/ui/icon.tsx`。
 - Icon 可由使用 Input 的父層指定。
 - 透過 `Pressable` 接收點擊事件。
-- 點擊事件由 `onRightIconPress` 傳入。
+- 點擊事件由 `onRightIconPress` 傳入。沒有 callback 的圖示只顯示，不宣告為 Button。
+- 父層以選填的 `rightIconAccessibilityLabel` 提供可操作圖示的無障礙名稱。停用時保留名稱與停用語意，未提供名稱時不以 Icon ID 代替。正式頁面應依動作用途提供名稱。
 - 不預設清除文字、搜尋或密碼顯示切換等功能。
 - Icon 顏色固定使用 Primary Color Token。
 - 點擊範圍 24 × 24px，不增加 hitSlop。
@@ -126,8 +127,8 @@ Disabled 灰階顏色優先使用既有 Design Tokens；若沒有適合的 Token
 
 | Prop              | 規格              |
 | ----------------- | --------------- |
-| `value`           | 父層管理輸入內容        |
-| `onChangeText`    | 回傳文字變更          |
+| `value`           | 必填，父層管理的 `string` |
+| `onChangeText`    | 必填，`(text: string) => void` |
 | `placeholder`     | 可自行指定           |
 | `maxLength`       | 可自行指定，預設不限制     |
 | `keyboardType`    | 可自行指定，預設一般鍵盤    |
@@ -169,7 +170,7 @@ Disabled 灰階顏色優先使用既有 Design Tokens；若沒有適合的 Token
 - [ ] 未指定 Icon 事件時不執行動作。
 - [ ] Helper Text 支援一般／錯誤兩種顏色。
 - [ ] Helper Text 可換行，未設定時不佔空間。
-- [ ] `value` 與 `onChangeText` 正常運作。
+- [ ] 父層提供必填的 `value` 與 `onChangeText`，並管理輸入內容。
 - [ ] `maxLength`、`keyboardType`、`secureTextEntry` 等原生 Props 正常傳遞。
 - [ ] iOS 與 Android 沒有非預期的原生底線或排版偏移。
 - [ ] 沒有增加規格以外的功能。

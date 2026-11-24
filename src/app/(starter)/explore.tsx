@@ -8,8 +8,7 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Collapsible } from '@/components/ui/collapsible';
 import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
-import { useTheme } from '@/hooks/use-theme';
+import { BottomTabInset, LightColors, MaxContentWidth, Spacing } from '@/constants/theme';
 
 export default function TabTwoScreen() {
   const safeAreaInsets = useSafeAreaInsets();
@@ -17,7 +16,6 @@ export default function TabTwoScreen() {
     ...safeAreaInsets,
     bottom: safeAreaInsets.bottom + BottomTabInset + Spacing.three,
   };
-  const theme = useTheme();
 
   const contentPlatformStyle = Platform.select({
     android: {
@@ -34,13 +32,13 @@ export default function TabTwoScreen() {
 
   return (
     <ScrollView
-      style={[styles.scrollView, { backgroundColor: theme.background }]}
+      style={[styles.scrollView, { backgroundColor: LightColors.surface }]}
       contentInset={insets}
       contentContainerStyle={[styles.contentContainer, contentPlatformStyle]}>
       <ThemedView style={styles.container}>
         <ThemedView style={styles.titleContainer}>
           <ThemedText type="subtitle">Explore</ThemedText>
-          <ThemedText style={styles.centerText} themeColor="textSecondary">
+          <ThemedText style={styles.centerText} themeColor="mutedText">
             This starter app includes example{'\n'}code to help you get started.
           </ThemedText>
 
@@ -49,7 +47,7 @@ export default function TabTwoScreen() {
               <ThemedView type="backgroundElement" style={styles.linkButton}>
                 <ThemedText type="link">Expo documentation</ThemedText>
                 <SymbolView
-                  tintColor={theme.text}
+                  tintColor={LightColors.baseText}
                   name={{ ios: 'arrow.up.right.square', android: 'link', web: 'link' }}
                   size={12}
                 />
@@ -99,11 +97,9 @@ export default function TabTwoScreen() {
             </ExternalLink>
           </Collapsible>
 
-          <Collapsible title="Light and dark mode components">
+          <Collapsible title="Color theme">
             <ThemedText type="small">
-              This template has light and dark mode support. The{' '}
-              <ThemedText type="code">useColorScheme()</ThemedText> hook lets you inspect what the
-              user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
+              This app uses a light color theme on every platform.
             </ThemedText>
             <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
               <ThemedText type="linkPrimary">Learn more</ThemedText>

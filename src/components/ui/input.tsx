@@ -19,6 +19,7 @@ export type InputProps = Pick<
   value: string;
   onChangeText: (text: string) => void;
   rightIcon?: string;
+  rightIconAccessibilityLabel?: string;
   onRightIconPress?: () => void;
   disabled?: boolean;
   helperText?: string;
@@ -27,6 +28,7 @@ export type InputProps = Pick<
 
 export function Input({
   rightIcon,
+  rightIconAccessibilityLabel,
   onRightIconPress,
   disabled = false,
   helperText,
@@ -34,7 +36,7 @@ export function Input({
   ...inputProps
 }: InputProps) {
   const symbol = rightIcon ? getIconSymbol(rightIcon) : undefined;
-  const iconInteractive = !disabled && !!onRightIconPress;
+  const hasRightIconAction = !!onRightIconPress;
 
   return (
     <View style={styles.root}>
@@ -51,10 +53,11 @@ export function Input({
         <View style={styles.iconSlot}>
           {symbol && (
             <Pressable
-              accessibilityRole={iconInteractive ? 'button' : undefined}
-              accessibilityLabel={iconInteractive ? rightIcon : undefined}
-              accessible={iconInteractive}
-              disabled={!iconInteractive}
+              accessibilityRole={hasRightIconAction ? 'button' : undefined}
+              accessibilityLabel={hasRightIconAction ? rightIconAccessibilityLabel : undefined}
+              accessible={hasRightIconAction}
+              aria-disabled={hasRightIconAction ? disabled : undefined}
+              disabled={!hasRightIconAction || disabled}
               onPress={onRightIconPress}
               style={styles.iconSlot}>
               <Icon

@@ -31,6 +31,10 @@ Root 也保留原有 Expo 範例的獨立路由 `/starter` 與 `/explore`。這�
 | Main Tabs | `src/app/(tabs)/_layout.tsx` | 固定顯示配方與採購的 Bottom Tab，管理共用 Bottom Sheet 的開關和目前內容。 |
 | Starter | `src/app/(starter)/_layout.tsx` | 保留 Expo 範例原有的 Web 與原生分頁介面。 |
 
+## 主題
+
+App 固定使用 Light Mode。`app.json` 為 `userInterfaceStyle: "light"`，Root Layout 使用 React Navigation 的 `DefaultTheme`，Web 使用 `color-scheme: light`。產品色彩統一從 `src/constants/theme.ts` 的 `LightColors` 取用。
+
 ## 實際畫面與路由
 
 Expo Router 的括號群組不會出現在網址中。
@@ -57,6 +61,7 @@ Expo Router 的括號群組不會出現在網址中。
 - 配方和採購的 Screen 透過 hook 傳入自己的內容。共用容器處理顯示、遮罩和關閉，頁面專屬內容留在對應的 Screen。
 - 容器使用 React Native 的透明 Modal 與底部 Safe Area。展開時全頁遮罩覆蓋 Bottom Tab 並攔截操作。按「關閉 Sheet」後可繼續使用分頁。
 - 目前以測試按鈕觸發。未來預計在容器內加入向上滑動展開、向下滑動收合與動畫。
+- P2-03 評估後保留 React Native `Modal`。現階段維持既有的跨平台遮罩、關閉策略和尺寸控制，暫緩採用 Expo Router `formSheet` 或 Expo UI `BottomSheet`。
 
 ## 未來規劃
 
