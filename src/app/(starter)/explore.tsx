@@ -1,7 +1,7 @@
 import { Image } from 'expo-image';
 import { SymbolView } from 'expo-symbols';
 import { useState } from 'react';
-import { Platform, Pressable, ScrollView, StyleSheet } from 'react-native';
+import { Platform, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ExternalLink } from '@/components/external-link';
@@ -9,6 +9,7 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Collapsible } from '@/components/ui/collapsible';
 import { ListGroup, type ListGroupItem } from '@/components/ui/list-group';
+import { Menu } from '@/components/ui/menu';
 import { WebBadge } from '@/components/web-badge';
 import { BottomTabInset, LightColors, MaxContentWidth, Spacing } from '@/constants/theme';
 
@@ -22,6 +23,7 @@ export default function TabTwoScreen() {
   const [items, setItems] = useState(demoItems);
   const [selected, setSelected] = useState<string>();
   const [showSample, setShowSample] = useState(true);
+  const [menuAction, setMenuAction] = useState('');
   const safeAreaInsets = useSafeAreaInsets();
   const insets = {
     ...safeAreaInsets,
@@ -144,6 +146,34 @@ export default function TabTwoScreen() {
             }] : []}
           />
           {selected && <ThemedText>已選取：{selected}</ThemedText>}
+
+          <ThemedText accessibilityRole="header" style={styles.centerText}>Menu 測試範例</ThemedText>
+          <View style={styles.narrowMenu}>
+            <Menu groups={[[{ id: 'single', label: '單一操作', onPress: () => setMenuAction('單一操作') }]]} />
+          </View>
+          <Menu groups={[[
+            { id: 'group-first', label: '單組第一項', onPress: () => setMenuAction('單組第一項') },
+            { id: 'group-last', label: '單組第二項', onPress: () => setMenuAction('單組第二項') },
+          ]]} />
+          <Menu groups={[
+            [],
+            [
+              { id: 'default', label: '預設操作', onPress: () => setMenuAction('預設操作') },
+              { id: 'selected', label: '已選取', selected: true, onPress: () => setMenuAction('已選取') },
+              { id: 'disabled', label: '停用項目', disabled: true, onPress: () => setMenuAction('停用項目') },
+            ],
+            [],
+            [
+              { id: 'both', label: '已選取且停用', selected: true, disabled: true, onPress: () => setMenuAction('已選取且停用') },
+              { id: 'long', label: '這是一個很長的選單項目，用來確認長文字在父層寬度不足時會單行顯示尾端省略號。'.repeat(3), onPress: () => setMenuAction('長文字') },
+            ],
+            [],
+          ]} />
+          <View>
+            <ThemedText>空群組不顯示選單</ThemedText>
+            <Menu groups={[[], []]} />
+          </View>
+          {!!menuAction && <ThemedText>Menu 回呼：{menuAction}</ThemedText>}
         </ThemedView>
         {Platform.OS === 'web' && <WebBadge />}
       </ThemedView>
@@ -189,6 +219,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.four,
     paddingTop: Spacing.three,
   },
+  narrowMenu: { width: '65%' },
   collapsibleContent: {
     alignItems: 'center',
   },

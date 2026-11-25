@@ -73,6 +73,12 @@
 - 已執行 TypeScript、Expo flat config ESLint、Expo Web 建置，以及 Chromium 版面、手勢、鍵盤和路由回歸。
 - iOS／Android、實際螢幕閱讀器、Safari、Firefox 與實機行動瀏覽器仍待驗證。見 [待實測清單](./PENDING_TESTS.md)。
 
+#### Menu Component
+
+- Menu 本體已實作，Explore 提供單列、群組與操作狀態展示。見 [Menu 規格](./MENU_SPEC.md)。
+- Menu Code Review 決議已實作，Chromium 已複驗鍵盤焦點、停用回呼及 DOM／Accessibility Tree。
+- Button 整合及跨平台驗證留待後續。見 [待實測清單](./PENDING_TESTS.md)。
+
 #### 元件 Code Review 決策
 
 - P1-01 已完成。Input 的 `value` 和 `onChangeText` 為必填，由父層管理。見 [Input 規格](./INPUT_SPEC.md)。

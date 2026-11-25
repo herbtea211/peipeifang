@@ -71,6 +71,17 @@
 
 參考 [List 規格](./LIST_SPEC.md)。
 
+## Menu
+
+- Code Review 後的 Chromium 回歸確認，DOM 無 aria-pressed、aria-selected。Accessibility Tree 呈現按鈕及停用狀態，選取狀態僅有視覺呈現。完整 Web 選單語意留待 Button 整合。
+- [ ] **iOS、Android 觸控範圍**　自然列高約 26 pt，低於 iOS 44 pt、Android 48 dp 建議值。以實機驗證觸控，再於視覺調整時重新評估。
+
+- [ ] **iOS、Android**　驗證觸控按壓、停用及選取狀態、系統字體縮放、陰影與分隔線。使用 VoiceOver／TalkBack 驗證按鈕名稱、選取、停用語意及啟動行為。
+- [ ] **Safari、Firefox、實機行動瀏覽器及 Web 螢幕閱讀器**　驗證按鈕名稱與狀態、鍵盤順序、焦點描邊以及 Enter／Space。Chromium 的 DOM 與 Accessibility Tree 只涵蓋瀏覽器自動化。
+- [ ] **Button 整合後**　驗證收合先於回呼、停用項目不收合、方向鍵與焦點移入／還原。
+
+參考 [Menu 規格](./MENU_SPEC.md)。
+
 ## 正式頁面接入後
 
 - [ ] **P2-04**　NavigationBar 接入 `ScrollView` 後，檢查持續捲動是否造成不必要的重新渲染。
@@ -90,3 +101,4 @@
 - Input 已在 Web 驗證受控輸入、`maxLength`、密碼遮蔽、Focus、Disabled、圖示回呼與提示文字。元件測試使用臨時頁面。
 - List 已在 Chromium 驗證原生單行省略樣式、滑動展開、同組收合、跨組獨立、點擊收合及刪除，並驗證 Tab 聚焦、Enter 與 Space。
 - P1-03 已用同一套 Chromium 操作流程對照修改前後，驗證刪除按鈕的焦點提示與隱藏、Tab／Shift+Tab、Enter／Space、無指標 DOM 啟動，以及父層移除或保留資料時的刪除。固定時序也複驗同組收合、跨組獨立與展開後點擊收合。
+- Menu 已在 Chromium 以 360、768 px 驗證容器寬度、分隔線、空群組、長文字省略、四種文字狀態、按壓背景、停用回呼、Tab／Shift+Tab、可見焦點、Enter／Space、無指標 DOM 啟動與 Accessibility Tree。
