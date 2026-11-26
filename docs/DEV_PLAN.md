@@ -79,6 +79,11 @@
 - Menu Code Review 決議已實作，Chromium 已複驗鍵盤焦點、停用回呼及 DOM／Accessibility Tree。
 - Button 整合及跨平台驗證留待後續。見 [待實測清單](./PENDING_TESTS.md)。
 
+#### Alert — Reuse Native API
+
+- 共用 `showAlert()` 已實作，Code Review 通過並維持現有行為。見 [Alert 規格](./ALERT_SPEC.md)。
+- Chromium 原生對話框與回呼已驗證。原生裝置、其他瀏覽器及無障礙測試仍待實測。見 [待實測清單](./PENDING_TESTS.md)。
+
 #### 元件 Code Review 決策
 
 - P1-01 已完成。Input 的 `value` 和 `onChangeText` 為必填，由父層管理。見 [Input 規格](./INPUT_SPEC.md)。

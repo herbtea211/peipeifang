@@ -82,6 +82,14 @@
 
 參考 [Menu 規格](./MENU_SPEC.md)。
 
+## Alert — Reuse Native API
+
+- [ ] **iOS、Android**　實測預設、單鍵、雙鍵、三鍵、cancel／destructive 與原生回呼。Android 複驗 cancelable 和 onDismiss，iOS 複驗 userInterfaceStyle。
+- [ ] **Safari、Firefox、實機行動瀏覽器**　測試原生 alert／confirm、按鈕順序無關的回呼、對話框抑制行為與不支援情境。
+- [ ] **Accessibility**　使用 VoiceOver、TalkBack 和 Web 螢幕閱讀器確認原生對話框的宣告、焦點與按鈕操作。
+
+參考 [Alert 規格](./ALERT_SPEC.md)。
+
 ## 正式頁面接入後
 
 - [ ] **P2-04**　NavigationBar 接入 `ScrollView` 後，檢查持續捲動是否造成不必要的重新渲染。
@@ -102,3 +110,4 @@
 - List 已在 Chromium 驗證原生單行省略樣式、滑動展開、同組收合、跨組獨立、點擊收合及刪除，並驗證 Tab 聚焦、Enter 與 Space。
 - P1-03 已用同一套 Chromium 操作流程對照修改前後，驗證刪除按鈕的焦點提示與隱藏、Tab／Shift+Tab、Enter／Space、無指標 DOM 啟動，以及父層移除或保留資料時的刪除。固定時序也複驗同組收合、跨組獨立與展開後點擊收合。
 - Menu 已在 Chromium 以 360、768 px 驗證容器寬度、分隔線、空群組、長文字省略、四種文字狀態、按壓背景、停用回呼、Tab／Shift+Tab、可見焦點、Enter／Space、無指標 DOM 啟動與 Accessibility Tree。
+- Alert 已在 Chromium 實測預設、單鍵及雙鍵原生對話框、交換雙鍵順序，以及不支援情境發出警告且不執行回呼。iOS／Android 參數原樣轉發以 mock 驗證，原生對話框待實機測試。

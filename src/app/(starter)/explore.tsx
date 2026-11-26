@@ -7,17 +7,22 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ExternalLink } from '@/components/external-link';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
+import { Button } from '@/components/ui/button';
 import { Collapsible } from '@/components/ui/collapsible';
 import { ListGroup, type ListGroupItem } from '@/components/ui/list-group';
 import { Menu } from '@/components/ui/menu';
 import { WebBadge } from '@/components/web-badge';
 import { BottomTabInset, LightColors, MaxContentWidth, Spacing } from '@/constants/theme';
+import { showAlert } from '@/utils/alert';
 
 const demoItems: ListGroupItem[] = [
   { id: 'soup', label: '牛肉湯', labelDetail: '冷藏保存', detail: '12 份', leftIcon: 'plus', rightIcon: 'chevron-right' },
   { id: 'sauce', label: '濃蝦醬', detail: '這是一段測試右側最大寬度與省略號的長文字' },
   { id: 'pizza', label: '拿坡里披薩' },
 ];
+
+const alertCancel = { text: '取消', style: 'cancel', onPress: () => console.info('Alert 回呼：取消') } as const;
+const alertDelete = { text: '刪除', style: 'destructive', onPress: () => console.info('Alert 回呼：刪除') } as const;
 
 export default function TabTwoScreen() {
   const [items, setItems] = useState(demoItems);
@@ -174,6 +179,54 @@ export default function TabTwoScreen() {
             <Menu groups={[[], []]} />
           </View>
           {!!menuAction && <ThemedText>Menu 回呼：{menuAction}</ThemedText>}
+
+          <ThemedText accessibilityRole="header" style={styles.centerText}>Alert 測試範例</ThemedText>
+          <Button label="預設 Alert" showLeftIcon={false} onPress={() => showAlert('通知', '這是預設 Alert。')} />
+          <Button
+            label="單一按鈕 Alert"
+            showLeftIcon={false}
+            onPress={() => showAlert('通知', '關閉後執行回呼。', [
+              { text: '知道了', onPress: () => console.info('Alert 回呼：知道了') },
+            ])}
+          />
+          <Button
+            label="確認刪除 Alert"
+            showLeftIcon={false}
+            onPress={() => showAlert('刪除項目？', '此操作無法復原。', [alertCancel, alertDelete])}
+          />
+          <Button
+            label="交換按鈕順序"
+            showLeftIcon={false}
+            onPress={() => showAlert('刪除項目？', '此操作無法復原。', [alertDelete, alertCancel])}
+          />
+          <Button
+            label="三個按鈕 Alert"
+            showLeftIcon={false}
+            onPress={() => showAlert('三個操作', undefined, [
+              { text: '捨棄', onPress: () => console.info('Alert 回呼：捨棄') },
+              alertCancel,
+              alertDelete,
+            ])}
+          />
+          <Button
+            label="未指定取消按鈕"
+            showLeftIcon={false}
+            onPress={() => showAlert('無法識別取消操作', undefined, [
+              { text: '捨棄', onPress: () => console.info('Alert 回呼：捨棄') },
+              alertDelete,
+            ])}
+          />
+          <Button
+            label="Native Alert Options"
+            showLeftIcon={false}
+            onPress={() => showAlert('原生 Options', 'Android 可點外部關閉。', [
+              { text: '知道了', onPress: () => console.info('Alert 回呼：知道了') },
+            ], {
+              cancelable: true,
+              userInterfaceStyle: 'dark',
+              onDismiss: () => console.info('Alert 回呼：dismiss'),
+            })}
+          />
         </ThemedView>
         {Platform.OS === 'web' && <WebBadge />}
       </ThemedView>
