@@ -46,12 +46,37 @@
 - Border Radius
 - Shadows
 
-### Phase 3｜建立頁面（Pages / Screens）
+### Phase 3｜頁面骨架與頁面整合
+
+#### 頁面骨架（已完成）
 
 - 依照 Figma 設計建立頁面。
 - 完成頁面版面配置。
 - 建立頁面之間的導覽流程。
 - 先以畫面呈現為主要目標。
+
+#### Page Integration（共用組件完成後進入）
+
+採用 **UI First**，逐步開發、逐步發現、持續整合，最後以驗證後的核心頁面與操作流程定案資料需求。每次只定義當前功能需要的資料，頁面開發前無須先完成所有 Data Model 或 Database Schema。
+
+每個頁面或功能流程依序執行：
+
+1. 確認頁面設計及操作規格。
+2. 確認頁面所需的資料，涵蓋 **Read**（讀取哪些資料）、**Write**（新增、修改或刪除哪些資料）與 **Relation**（和其他頁面或資料實體的關聯）。
+3. 建立或擴充目前需要的 TypeScript Types 與共用 Mock Data。
+4. 優先沿用已完成的共用組件與 Design Tokens，完成頁面整合。
+5. 實作頁面操作與資料讀寫。
+6. 驗證當前功能及既有頁面的資料一致性。
+7. 更新 [資料需求](./DATA_REQUIREMENTS.md) 與開發進度。
+8. 進行 Code Review。
+9. 依該任務的提交與推送指示執行 Commit & Push。
+10. 進入下一個頁面或功能流程。
+
+共用 Mock Data 維持單一資料來源。涉及同一筆資料的頁面應同步反映變更。新頁面揭露新需求時，可以同輪調整既有型別、Mock Data 和受影響頁面，並同步更新文件與驗證相關流程。每輪都完成必要的資料整合。
+
+延續既有 Mock Data 規範。資料在 App 執行期間模擬讀寫，無須永久保存。Hook、Context、Service、Repository 與 API 層按實際需要加入。此階段不串接 Supabase，也不定案正式 Database Schema。核心頁面及操作流程完成並驗證後，以資料需求紀錄作為後續 Schema 設計依據，依 Phase 9 的試用確認條件進入後端階段。
+
+沿用 Native First、Reuse First、Minimal Implementation、No Overengineering、Single Responsibility 和 Necessary Only。共用組件的調整以當前頁面實際需求為限。
 
 ### Phase 4｜建立 UI Components
 
@@ -103,21 +128,9 @@
 
 若日後統一 Icon 名稱型別，將 ListItem 與 Button、Input、NavigationBar 一起檢查。
 
-### Phase 5｜資料模型與假資料
+### 原 Phase 5／6｜資料模型、Mock Data 與操作流程
 
-- 使用 TypeScript 定義資料型別。
-- 建立 Mock Data。
-- 建立資料存取服務（Services）。
-- 使用假資料模擬資料庫回傳結果。
-
-目前不建立 Supabase，也不需要永久保存資料。
-
-### Phase 6｜完成操作流程
-
-- 串接頁面與假資料。
-- 實作新增、查詢、修改、刪除等操作。
-- 建立假登入流程。
-- 確認操作結果能正確反映在介面上。
+原規劃的 TypeScript 資料型別、Mock Data、資料存取服務、頁面讀寫操作與假登入流程，納入 Phase 3 的 Page Integration 循環，依當前頁面或流程逐步完成。既有資料存取規範持續適用。Phase 7 至 Phase 11 保留原編號與安排。
 
 ### Phase 7｜部署 Web 測試版
 
@@ -162,7 +175,7 @@
 
 前期使用 Mock Data，但必須預留未來資料庫串接位置。
 
-資料存取集中在 Services，不要讓各個 Page 直接呼叫資料庫。
+當頁面需要共用資料存取邏輯或資料庫串接時，使用既有的 Services 組織方式。Page 不直接呼叫資料庫。
 
 範例：
 

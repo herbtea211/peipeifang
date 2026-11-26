@@ -16,7 +16,7 @@
 | `docs/` | 產品、環境與開發規範。 |
 | `scripts/` | 專案維護腳本。 |
 
-`services/`、`mocks/` 和 `types/` 先用 `.gitkeep` 保留目錄。對應程式碼在 Phase 5 開始加入。
+`services/`、`mocks/` 和 `types/` 先用 `.gitkeep` 保留目錄。對應程式碼在 Page Integration 期間依當前頁面需求加入。
 
 ## 命名
 
@@ -29,4 +29,4 @@
 
 - 頁面在 `src/app/` 組合畫面、管理頁面狀態並處理導覽。專屬於單一頁面的程式碼可留在該路由檔中，共用元件與 hooks 放在路由目錄外。
 - 跨目錄匯入沿用 `@/` 別名，例如 `@/components/themed-text`。根目錄的資源使用 `@/assets/`。
-- 資料流程由頁面呼叫 `services/`，共用型別取自 `types/`。前期由 services 使用 `mocks/` 提供假資料，並標示未來資料庫呼叫、參數、回傳結果與錯誤處理的位置。
+- 共用型別置於 `types/`，同一業務資料共用 `mocks/` 的來源。需要共用資料存取邏輯時沿用 `services/`，並標示未來資料庫呼叫、參數、回傳結果與錯誤處理的位置。

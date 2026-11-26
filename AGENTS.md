@@ -22,17 +22,10 @@ This is an Expo/React Native mobile application. Prioritize mobile-first pattern
 
 目前開發方向：
 
-1. 專案目錄與命名規範
-2. Design Tokens
-3. 建立 Pages / Screens
-4. 建立共用 UI Components
-5. 建立 TypeScript 資料模型與 Mock Data
-6. 完成頁面操作與假登入流程
-7. 部署 Web 測試版
-8. 試用與調整
-9. 建立 Supabase 後端
-10. 串接 Auth 與正式資料庫
-11. iOS / Android 實機測試
+- Phase 1、2 建立專案基礎架構與 Design Tokens。
+- Phase 3 先建立頁面骨架，完成 Phase 4 共用組件後進入 Page Integration。
+- 原 Phase 5／6 的資料模型、假資料、頁面操作與假登入，併入 Page Integration 循環。
+- Phase 7 至 11 依既有計畫部署 Web 測試版、試用與調整、建立 Supabase 後端、串接 Auth 與正式資料庫、進行 iOS／Android 實機測試。
 
 不要自行跳過階段或提前實作後續功能。
 
@@ -47,9 +40,16 @@ This is an Expo/React Native mobile application. Prioritize mobile-first pattern
 - 不需要實作真正的帳號驗證。
 - 不要提前安裝或設定 Supabase。
 
+#### UI First 與漸進式資料整合
+
+- 開始每個頁面或流程時，確認當前的 Read、Write、Relation，再按需建立或擴充 TypeScript Types 和共用 Mock Data。
+- 同一業務資料使用同一來源，跨頁面須同步反映變更。新需求影響既有資料時，在同一輪更新受影響的資料及頁面，複驗一致性。
+- 每輪依開發計畫完成頁面與讀寫整合，更新 [資料需求文件](docs/DATA_REQUIREMENTS.md) 與開發進度後進行 Code Review。
+- 按當前需求採用 Hook、Context、Service、Repository 或 API 層。正式 Database Schema 以已驗證的核心流程為依據，留到後端階段設計。
+
 ### 4. 預留未來資料庫串接位置
 
-資料存取應集中在 `services/`，不要讓 Page 直接依賴資料庫。
+需要共用資料存取邏輯或串接資料庫時沿用 `services/`。Page 不直接依賴資料庫。
 
 程式碼中必須使用清楚的註解，標示未來需要：
 
@@ -72,8 +72,8 @@ setRecipes(recipes);
 
 ### 5. 頁面與 UI Components 開發原則
 
-- 先依照 Figma 設計建立頁面。
-- 頁面完成後，再整理重複使用的 UI 元素。
+- 依 Figma 設計與操作規格整合頁面，優先沿用現有共用組件及 Design Tokens。
+- 實際出現重複需求時，再整理可共用的 UI 元素。
 - 根據實際需求建立共用 Components。
 - 不要為了抽象化而過早建立大量共用元件。
 - 優先維持頁面結構清楚及跨平台相容性。
