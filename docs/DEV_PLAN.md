@@ -78,6 +78,15 @@
 
 沿用 Native First、Reuse First、Minimal Implementation、No Overengineering、Single Responsibility 和 Necessary Only。共用組件的調整以當前頁面實際需求為限。
 
+#### Auth｜模擬登入
+
+已確認 Google Login、Apple Login、Email OTP、Persistent Session 與合併的 Login／Register 流程。Page Integration 期間各登入方式皆以 Mock Auth 驗證登入、登出、登入狀態恢復及頁面跳轉，並依頁面開發逐步確認 Auth 資料模型。本階段不串接正式服務、不寄送 OTP，也不申請付費服務或 Apple Developer Program。詳見 [Auth 規格](./AUTH_SPEC.md)。
+
+- 登入模組整合 Start、Login、Verify、Mock Session 與 Protected Routes。正式串接與驗證仍依 Auth 上線清單。
+- Auth Code Review 將驗證 Email 移至 Auth Context，Challenge 在 Session 保存成功後消耗，並加入登出防重複操作。
+- 配方頁登出按鈕為暫時測試入口。正式開發配方頁時移除，待正式登出位置確認後再整合。
+- Start 保留原生不定進度 ActivityIndicator，與設計稿水平 Progress Bar 的差異待 UI 驗收。
+
 ### Phase 4｜建立 UI Components
 
 從已建立的頁面中整理重複使用的 UI 元素：
@@ -160,8 +169,7 @@
 
 - 將 Mock Data 替換為 Supabase 資料。
 - 實作正式資料查詢與寫入。
-- 串接 Authentication（Auth）。
-- 實作註冊、登入、登出及密碼管理。
+- 依 [Auth 規格](./AUTH_SPEC.md) 串接 Supabase Auth、正式登入方式與 Session 管理，完成合併的登入／註冊及登出流程。
 - 確認使用者資料隔離及權限。
 
 ### Phase 11｜實機測試
@@ -170,6 +178,7 @@
 - iOS 實機測試。
 - 確認不同裝置的畫面與操作。
 - 修正問題並準備正式發布。
+- 正式營運前須停用 Mock Auth，並完成 [Auth Production Release Checklist](./AUTH_SPEC.md#production-release-checklist) 的所有 Release Blocker。
 
 ## 4. 資料存取程式碼規範
 

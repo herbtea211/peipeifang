@@ -111,3 +111,20 @@
 - P1-03 已用同一套 Chromium 操作流程對照修改前後，驗證刪除按鈕的焦點提示與隱藏、Tab／Shift+Tab、Enter／Space、無指標 DOM 啟動，以及父層移除或保留資料時的刪除。固定時序也複驗同組收合、跨組獨立與展開後點擊收合。
 - Menu 已在 Chromium 以 360、768 px 驗證容器寬度、分隔線、空群組、長文字省略、四種文字狀態、按壓背景、停用回呼、Tab／Shift+Tab、可見焦點、Enter／Space、無指標 DOM 啟動與 Accessibility Tree。
 - Alert 已在 Chromium 實測預設、單鍵及雙鍵原生對話框、交換雙鍵順序，以及不支援情境發出警告且不執行回呼。iOS／Android 參數原樣轉發以 mock 驗證，原生對話框待實機測試。
+
+## Mock Auth
+
+- Chromium 已驗證 Session 初始化與恢復、未登入與已登入的直接路由、登出後返回、Email 格式與清除、OTP 錯誤與過期、重發、回到 Login 的 Email 保留與請求限制、Google／Apple 成功流程，及社群按鈕的按壓和停用。
+- 社群取消與失敗以獨立 Mock 服務測試驗證。正式 Provider 介面與原生實機的系統自動填入留待對應階段。
+
+- [ ] iOS／Android 實機複驗啟動、品牌圖示、鍵盤、OTP 貼上及系統自動填入、Session 恢復及登出。
+- [ ] Safari、Firefox、行動瀏覽器及實際螢幕閱讀器驗證 Auth 導覽、焦點與錯誤訊息。
+- [ ] 正式登入、OTP 失效機制與權限驗證見 [Auth 規格](./AUTH_SPEC.md)。
+
+### Auth Code Review 回歸
+
+- Chromium 注入儲存錯誤，驗證 Session 讀取失敗、損壞 JSON 或資料結構不符時進入 Login。Email、Apple、Google 寫入失敗後可重試。清除失敗保留 Session、顯示提示並可再次登出。
+- Chromium 驗證 Verify 網址無 Email，重整未完成驗證回登入。Mock 服務測試驗證保存鎖定、一次性使用、保存失敗重試及新 Challenge。
+- 隔離 Chromium 測試版注入社群取消／失敗、重發失敗與延遲登出，驗證畫面反應及登出按鈕停用。
+- [ ] Start 的原生不定進度 ActivityIndicator 與水平 Progress Bar 設計稿的差異待 UI 驗收。
+- [ ] 原生實機複驗儲存異常、Auth 跨平台操作及焦點。

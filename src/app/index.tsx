@@ -1,5 +1,8 @@
 import { Redirect } from 'expo-router';
 
+import { useAuth } from '@/hooks/use-auth';
+
 export default function AppEntry() {
-  return <Redirect href="/login" />;
+  const { session } = useAuth();
+  return <Redirect href={session ? '/recipes' : '/login'} />;
 }

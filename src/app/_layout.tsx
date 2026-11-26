@@ -1,17 +1,43 @@
 import { DefaultTheme, Stack, ThemeProvider } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
+import { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
+import { AuthStart } from '@/components/auth-start';
+import { AuthProvider, useAuth } from '@/hooks/use-auth';
 
-SplashScreen.preventAutoHideAsync();
+void SplashScreen.preventAutoHideAsync();
+
+function RootNavigator() {
+  const { initializing, session } = useAuth();
+
+  useEffect(() => {
+    void SplashScreen.hideAsync();
+  }, []);
+
+  if (initializing) return <AuthStart />;
+
+  return (
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="index" />
+      <Stack.Protected guard={!session}>
+        <Stack.Screen name="(auth)" />
+      </Stack.Protected>
+      <Stack.Protected guard={!!session}>
+        <Stack.Screen name="(tabs)" />
+      </Stack.Protected>
+      <Stack.Screen name="(starter)" />
+    </Stack>
+  );
+}
 
 export default function RootLayout() {
   return (
     <GestureHandlerRootView>
       <ThemeProvider value={DefaultTheme}>
-        <AnimatedSplashOverlay />
-        <Stack screenOptions={{ headerShown: false }} />
+        <AuthProvider>
+          <RootNavigator />
+        </AuthProvider>
       </ThemeProvider>
     </GestureHandlerRootView>
   );
