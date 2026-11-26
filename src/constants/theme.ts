@@ -120,4 +120,5 @@ export const BorderRadius = {
 
 export const Shadows = {
   surface: { boxShadow: '0px 0px 20px 0px #0000001A' },
+  inputFocus: { boxShadow: '0px 0px 20px 0px #00000033' },
 } as const;

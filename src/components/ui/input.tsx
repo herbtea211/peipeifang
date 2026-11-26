@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Pressable, StyleSheet, Text, TextInput, View, type TextInputProps } from 'react-native';
 
 import { getIconSymbol, Icon } from '@/components/ui/icon';
@@ -11,6 +12,8 @@ export type InputProps = Pick<
   | 'secureTextEntry'
   | 'returnKeyType'
   | 'onSubmitEditing'
+  | 'onFocus'
+  | 'onBlur'
   | 'autoFocus'
   | 'autoCorrect'
   | 'autoCapitalize'
@@ -33,20 +36,32 @@ export function Input({
   disabled = false,
   helperText,
   error = false,
+  onFocus,
+  onBlur,
   ...inputProps
 }: InputProps) {
+  const [focused, setFocused] = useState(false);
+  const showFocus = focused && !disabled;
   const symbol = rightIcon ? getIconSymbol(rightIcon) : undefined;
   const hasRightIconAction = !!onRightIconPress;
 
   return (
     <View style={styles.root}>
-      <View style={[styles.container, disabled ? styles.disabled : Shadows.surface]}>
+      <View style={[styles.container, disabled ? styles.disabled : showFocus ? Shadows.inputFocus : Shadows.surface]}>
         <TextInput
           {...inputProps}
           style={[styles.input, disabled && styles.disabledText]}
           placeholderTextColor={LightColors.placeholder}
           editable={!disabled}
           aria-disabled={disabled}
+          onFocus={(event) => {
+            setFocused(true);
+            onFocus?.(event);
+          }}
+          onBlur={(event) => {
+            setFocused(false);
+            onBlur?.(event);
+          }}
           multiline={false}
           underlineColorAndroid="transparent"
         />
@@ -68,6 +83,7 @@ export function Input({
             </Pressable>
           )}
         </View>
+        {showFocus && <View pointerEvents="none" style={styles.focusBorder} />}
       </View>
       {!!helperText && <Text style={[styles.helper, error && styles.error]}>{helperText}</Text>}
     </View>
@@ -84,6 +100,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: LayoutSpacing.lg,
     gap: LayoutSpacing.sm,
+  },
+  focusBorder: {
+    ...StyleSheet.absoluteFill,
+    borderWidth: 1,
+    borderColor: LightColors.primary,
+    borderRadius: BorderRadius.full,
   },
   input: {
     ...Typography.body,

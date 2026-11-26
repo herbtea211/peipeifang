@@ -54,3 +54,9 @@ Production Release Checklist 另包含社群品牌與平台審核、憑證安全
 - Verify 從 Auth Context 讀取驗證中的 Email，網址只使用 /verification。返回 Login 清除驗證中的 Email，表單仍保留原輸入。登入、登出也會清除驗證資料。OTP Challenge 與重發限制維持在共用 Mock 服務。
 - Challenge 的 used 與 saving 旗標共用同一筆記憶體資料。開始儲存 Session 時鎖定該筆驗證與重發，成功才標記已使用，失敗釋放鎖定供重試。已使用的 Challenge 無法再次驗證，原重發期限仍生效。重發建立新的可用 Challenge。固定 Mock 碼無法驗證正式 OTP 新舊碼失效。
 - 登出在操作開始時立即鎖定並停用按鈕。儲存清除成功時由 Protected Routes 導向，清除失敗時 Session 保留並提示錯誤。
+
+## Auth UI 第一輪驗收調整
+
+- Login 的 Email 提示為 xxxxxx@mail.com。取得驗證碼按鈕由頁面橫列置中，沿用共用 Button 的尺寸。共用 Input 的 Focus 邊框與陰影見 [Input 規格](./INPUT_SPEC.md)。
+- Verify 沿用單一原生 TextInput。聚焦時依原生游標位置只高亮一格底線，Blur 後還原。原生 autoFocus 處理進頁聚焦，重發成功清除輸入並聚焦首格。Web 使用底線提供焦點提示。
+- keyboardType 為 number-pad。原生虛擬鍵盤是否自動彈出由平台決定，實機結果待驗證。

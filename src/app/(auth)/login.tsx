@@ -57,7 +57,7 @@ export default function LoginScreen() {
       <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={styles.content}>
         <Input
           accessibilityLabel="電子郵件"
-          placeholder="mail"
+          placeholder="xxxxxx@mail.com"
           value={email}
           onChangeText={setEmail}
           keyboardType="email-address"
@@ -67,7 +67,9 @@ export default function LoginScreen() {
           rightIconAccessibilityLabel="清除電子郵件"
           onRightIconPress={() => setEmail('')}
         />
-        <Button label="取得驗證碼" showLeftIcon={false} disabled={!validEmail || busy} onPress={sendOtp} />
+        <View style={styles.submitRow}>
+          <Button label="取得驗證碼" showLeftIcon={false} disabled={!validEmail || busy} onPress={sendOtp} />
+        </View>
         <View style={styles.divider} />
         <View style={styles.providers}>
           <SocialLoginButton provider="apple" disabled={busy} onPress={() => void loginWith('apple')} />
@@ -81,6 +83,7 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: LightColors.background },
   content: { width: '100%', maxWidth: 510, alignSelf: 'center', alignItems: 'center', paddingHorizontal: LayoutSpacing.xxl * 2, paddingTop: LayoutSpacing.xl * 4, paddingBottom: LayoutSpacing.xl, gap: LayoutSpacing.xxl },
+  submitRow: { alignSelf: 'stretch', flexDirection: 'row', justifyContent: 'center' },
   divider: { width: '100%', height: StyleSheet.hairlineWidth, backgroundColor: LightColors.buttonDisabled, marginVertical: LayoutSpacing.lg },
   providers: { flexDirection: 'row', gap: LayoutSpacing.xxl },
 });

@@ -47,12 +47,14 @@ Input
 | Text Alignment     | Left                    |
 | Vertical Alignment | Center                  |
 | Horizontal Padding | 固定，優先使用既有 Spacing Token |
-| Focus Style        | 不改變外觀                   |
+| Focus Style        | Primary 1px 邊框及聚焦陰影 |
 
 - Input 為單行輸入。
 - 輸入框高度固定，提示文字高度不包含在內。
 - 不提供自訂高度、寬度、內距、圓角、背景或陰影的 Props。
 - 使用外層容器處理背景、圓角、陰影及排列。
+- Default 沿用 Shadows.surface（0 0 20 0，#0000001A）。Focused 使用 Shadows.inputFocus（0 0 20 0，#00000033），背景與圓角維持原樣。
+- Focus 邊框使用絕對定位覆層，1px、LightColors.primary，文字、圖示與外框尺寸維持原位置。Blur 恢復 Default，Disabled 維持原有呈現。
 
 ## 03｜Text & Placeholder
 
@@ -136,6 +138,7 @@ Disabled 灰階顏色優先使用既有 Design Tokens；若沒有適合的 Token
 | `returnKeyType`   | 可自行指定           |
 | `onSubmitEditing` | 由父層指定事件         |
 | `autoFocus`       | 預設 false        |
+| `onFocus`／`onBlur` | 轉發原生焦點事件 |
 | `autoCorrect`     | 沿用原生預設，可覆寫      |
 | `autoCapitalize`  | 沿用原生預設，可覆寫      |
 
@@ -144,7 +147,7 @@ Disabled 灰階顏色優先使用既有 Design Tokens；若沒有適合的 Token
 - `multiline={false}`。
 - 使用系統預設游標及文字選取行為。
 - 支援原生複製、剪下、貼上。
-- Focus 時使用原生鍵盤，不額外修改輸入框外觀。
+- Focus 時使用原生鍵盤。原生 onFocus／onBlur 設定聚焦樣式，並轉發給呼叫端。Web 由容器聚焦邊框提供視覺提示。
 - 鍵盤收起由 Screen／Sheet 負責。
 - 不自行監聽外部點擊。
 
@@ -163,7 +166,7 @@ Disabled 灰階顏色優先使用既有 Design Tokens；若沒有適合的 Token
 - [ ] 單行文字輸入正常。
 - [ ] Input 寬度 100%，高度與圓角使用適合的既有 Tokens。
 - [ ] 輸入文字與 Placeholder 樣式正確。
-- [ ] Focus 前後輸入框外觀一致。
+- [ ] Focus／Blur 切換邊框及陰影，外部尺寸、文字與圖示位置一致。
 - [ ] Disabled 時灰階、無陰影且不可編輯。
 - [ ] 右側 Icon 固定保留 24 × 24px 區域。
 - [ ] Icon 點擊事件可由父層指定。

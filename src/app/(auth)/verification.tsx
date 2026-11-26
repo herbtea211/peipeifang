@@ -14,12 +14,15 @@ export default function VerificationScreen() {
   const router = useRouter();
   const { verificationEmail, setVerificationEmail, signIn } = useAuth();
   const [code, setCode] = useState('');
+  const [focused, setFocused] = useState(false);
+  const [selectionStart, setSelectionStart] = useState(0);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const [now, setNow] = useState(Date.now);
   const input = useRef<ComponentRef<typeof TextInput>>(null);
   const pending = useRef(false);
   const challenge = verificationEmail ? getOtpChallenge(verificationEmail) : undefined;
+  const activeCell = Math.min(selectionStart, code.length, 5);
   const remaining = Math.max(0, Math.ceil(((challenge?.resendAt ?? 0) - now) / 1000));
 
   useEffect(() => {
@@ -60,6 +63,7 @@ export default function VerificationScreen() {
       return;
     }
     setCode('');
+    setSelectionStart(0);
     setError('');
     setNow(Date.now());
     input.current?.focus();
@@ -82,7 +86,7 @@ export default function VerificationScreen() {
         </ThemedText>
         <View style={styles.code}>
           {Array.from({ length: 6 }, (_, index) => (
-            <View key={index} aria-hidden style={styles.cell}>
+            <View key={index} aria-hidden style={[styles.cell, focused && activeCell === index && styles.focusedCell]}>
               <ThemedText themeColor={error ? 'error' : 'text'} style={styles.digit}>{code[index]}</ThemedText>
             </View>
           ))}
@@ -96,6 +100,9 @@ export default function VerificationScreen() {
             caretHidden
             value={code}
             onChangeText={(text) => void changeCode(text)}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
+            onSelectionChange={({ nativeEvent }) => setSelectionStart(nativeEvent.selection.start)}
             editable={!busy}
             autoFocus
             underlineColorAndroid="transparent"
@@ -119,7 +126,8 @@ const styles = StyleSheet.create({
   instructions: { ...Typography.button, textAlign: 'center' },
   code: { width: '100%', marginTop: LayoutSpacing.xxl * 2, flexDirection: 'row', gap: LayoutSpacing.sm },
   cell: { flex: 1, alignItems: 'center', borderBottomWidth: 2, borderColor: LightColors.text, minHeight: 50 },
+  focusedCell: { borderColor: LightColors.primary },
   digit: { ...Typography.title, fontSize: 38, lineHeight: 48 },
-  input: { ...StyleSheet.absoluteFill, color: 'transparent', backgroundColor: 'transparent', fontSize: Typography.body.fontSize },
+  input: { ...StyleSheet.absoluteFill, color: 'transparent', backgroundColor: 'transparent', fontSize: Typography.body.fontSize, outlineWidth: 0 },
   countdown: { ...Typography.caption, textAlign: 'center' },
 });

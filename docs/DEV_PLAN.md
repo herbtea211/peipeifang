@@ -86,6 +86,7 @@
 - Auth Code Review 將驗證 Email 移至 Auth Context，Challenge 在 Session 保存成功後消耗，並加入登出防重複操作。
 - 配方頁登出按鈕為暫時測試入口。正式開發配方頁時移除，待正式登出位置確認後再整合。
 - Start 保留原生不定進度 ActivityIndicator，與設計稿水平 Progress Bar 的差異待 UI 驗收。
+- Auth UI 第一輪調整 Login 文案與按鈕置中、共用 Input 聚焦回饋及 Verify 游標格提示。原生鍵盤待實機驗收。
 
 ### Phase 4｜建立 UI Components
 
