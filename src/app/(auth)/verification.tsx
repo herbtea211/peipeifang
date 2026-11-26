@@ -128,6 +128,6 @@ const styles = StyleSheet.create({
   cell: { flex: 1, alignItems: 'center', borderBottomWidth: 2, borderColor: LightColors.text, minHeight: 50 },
   focusedCell: { borderColor: LightColors.primary },
   digit: { ...Typography.title, fontSize: 38, lineHeight: 48 },
-  input: { ...StyleSheet.absoluteFill, color: 'transparent', backgroundColor: 'transparent', fontSize: Typography.body.fontSize, outlineWidth: 0 },
+  input: { ...StyleSheet.absoluteFill, opacity: 0, color: 'transparent', backgroundColor: 'transparent', fontSize: Typography.body.fontSize, outlineWidth: 0 },
   countdown: { ...Typography.caption, textAlign: 'center' },
 });

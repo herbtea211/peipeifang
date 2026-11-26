@@ -60,3 +60,7 @@ Production Release Checklist 另包含社群品牌與平台審核、憑證安全
 - Login 的 Email 提示為 xxxxxx@mail.com。取得驗證碼按鈕由頁面橫列置中，沿用共用 Button 的尺寸。共用 Input 的 Focus 邊框與陰影見 [Input 規格](./INPUT_SPEC.md)。
 - Verify 沿用單一原生 TextInput。聚焦時依原生游標位置只高亮一格底線，Blur 後還原。原生 autoFocus 處理進頁聚焦，重發成功清除輸入並聚焦首格。Web 使用底線提供焦點提示。
 - keyboardType 為 number-pad。原生虛擬鍵盤是否自動彈出由平台決定，實機結果待驗證。
+
+## UI-06｜Verify 文字重疊
+
+Android Expo Go 實機回報，輸入驗證碼後，六格數字與原生 TextInput 的小字同時顯示。此次僅在原生輸入欄加入 opacity: 0，保留原有屬性與輸入機制。重疊原因尚未確認，修正效果待 Android 實機驗收。

@@ -134,3 +134,5 @@
 - [ ] iOS／Android 實機確認共用 Input 的圓角邊框與陰影、Verify 游標底線及退焦樣式。
 - [ ] iOS／Android 與行動瀏覽器確認進入 Verify、重發成功及手動點擊時，是否實際彈出原生數字鍵盤。桌面 Chromium 僅驗證焦點。iOS Safari 可能限制非使用者操作引發的鍵盤。
 - [ ] 實機複驗 OTP AutoFill、系統鍵盤關閉後重新喚起，以及螢幕閱讀器回饋。
+
+- [ ] **UI-06／Android Expo Go**　輸入 12，確認只顯示六格數字、原生小字不再重疊。複驗原生數字鍵盤、AutoFill 與無障礙操作。opacity: 0 為待驗收方案，重疊原因尚未確認。
