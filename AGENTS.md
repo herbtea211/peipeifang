@@ -13,6 +13,7 @@ This is an Expo/React Native mobile application. Prioritize mobile-first pattern
 - `docs/PROJECT_GUIDE.md`：了解產品定位、功能與技術架構。
 - `docs/DEV_SETUP.md`：了解開發環境與已完成的設定。
 - `docs/DEV_PLAN.md`：了解開發階段與工作順序。
+- `docs/ERROR_LOG.md`：核對過往錯誤，將相關 Prevention 納入本次實作及測試計畫。
 
 如果文件尚未建立或內容不足，不要自行假設其中的規劃。
 
@@ -109,6 +110,13 @@ setRecipes(recipes);
 - 不要未經確認就新增大型套件或第三方依賴。
 - 遇到規劃衝突時，先說明問題並等待確認。
 - 完成任務後，說明修改的檔案及內容。
+
+### 8. Error Log 與錯誤預防
+
+- 開發前核對本次工作是否涉及過往錯誤，優先將相關預防措施納入實作與測試。
+- 開發中遇到既有問題，先評估已驗證的修法是否適用。遇到新問題，記錄環境、現象與調查結果，優先定位根本原因，避免以無關重構掩蓋問題。
+- 開發後、Code Review 前，檢查並視需要更新 [Error Log](docs/ERROR_LOG.md)，補充根本原因、修正方式及具體預防措施。區分已驗證、待驗證及尚未解決的問題。
+- 同一問題更新原紀錄，保留已修正的歷史紀錄。沒有新問題或新發現時，維持既有紀錄。尚未完成的測試與驗收記在 [PENDING_TESTS.md](docs/PENDING_TESTS.md)，並以 Error ID 或文件連結交叉引用。
 
 ---
 

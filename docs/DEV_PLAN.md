@@ -59,7 +59,7 @@
 
 採用 **UI First**，逐步開發、逐步發現、持續整合，最後以驗證後的核心頁面與操作流程定案資料需求。每次只定義當前功能需要的資料，頁面開發前無須先完成所有 Data Model 或 Database Schema。
 
-每個頁面或功能流程依序執行：
+每個頁面或功能流程先進行下方固定開發流程的前置檢查，再依序執行：
 
 1. 確認頁面設計及操作規格。
 2. 確認頁面所需的資料，涵蓋 **Read**（讀取哪些資料）、**Write**（新增、修改或刪除哪些資料）與 **Relation**（和其他頁面或資料實體的關聯）。
@@ -67,7 +67,7 @@
 4. 優先沿用已完成的共用組件與 Design Tokens，完成頁面整合。
 5. 實作頁面操作與資料讀寫。
 6. 驗證當前功能及既有頁面的資料一致性。
-7. 更新 [資料需求](./DATA_REQUIREMENTS.md) 與開發進度。
+7. 更新 [資料需求](./DATA_REQUIREMENTS.md) 與開發進度，檢查並視需要更新 Error Log。
 8. 進行 Code Review。
 9. 依該任務的提交與推送指示執行 Commit & Push。
 10. 進入下一個頁面或功能流程。
@@ -87,6 +87,7 @@
 - 配方頁登出按鈕為暫時測試入口。正式開發配方頁時移除，待正式登出位置確認後再整合。
 - Start 保留原生不定進度 ActivityIndicator，與設計稿水平 Progress Bar 的差異待 UI 驗收。
 - Auth UI 第一輪調整 Login 文案與按鈕置中、共用 Input 聚焦回饋及 Verify 游標格提示。原生鍵盤待實機驗收。
+- Auth UI-06 已加入隱藏原生 OTP 文字的修正方案，Android Expo Go 驗收仍待完成。詳見 [ERR-008](./ERROR_LOG.md#err-008android-otp-文字重疊)。
 
 ### Phase 4｜建立 UI Components
 
@@ -221,6 +222,19 @@ src/
 5. 每次修改應以當前階段的工作為範圍。
 6. 修改既有檔案時，保留與當前任務無關的原有內容。
 7. 若開發需求與本文件的規劃有衝突，先提出說明，不要自行改變開發方向。
+
+### 固定開發流程
+
+1. 閱讀 [AGENTS.md](../AGENTS.md)。
+2. 閱讀本開發計畫。
+3. 閱讀 [ERROR_LOG.md](./ERROR_LOG.md)，將相關 Prevention 納入本次計畫。
+4. 執行 Native Capability Assessment。
+5. 確認開發規格。
+6. 執行開發。
+7. 執行 Regression Test，將未完成的測試與驗收記入 [PENDING_TESTS.md](./PENDING_TESTS.md)。
+8. 檢查 ERROR_LOG.md，依新問題或新發現新增或更新紀錄。
+9. 進行 Code Review。
+10. 依當次任務指示執行 Commit & Push。
 
 ---
 
